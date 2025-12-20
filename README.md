@@ -1,6 +1,7 @@
-# When blocks
+# Basic Usage
+## When blocks
 All code must be in a when event. They are marked with the blocks `when()` and `endWhen()`
-## All when events
+### All when events
 * onInit — runs when the ball is created
 * onHitBlock — runs when the ball hits a block
 * onHitAny — runs when the ball hits a block or a wall
@@ -8,7 +9,7 @@ All code must be in a when event. They are marked with the blocks `when()` and `
 * on1Second — runs every second
 * on2Seconds — runs every 2 seconds
 * on6Seconds — runs every 6 seconds
-## Example usage
+### Example usage
 ```
 when(onInit)
 setRotationStyle(all around)
