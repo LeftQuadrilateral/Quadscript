@@ -26,12 +26,17 @@ Lets the ball spin visually on initialization, and rotates 10° clockwise when i
 
 # Standard Commands
 
-Inside when wraps, standard commands are actions the ball does. See **List of commands** for all usable commands. Commands without parameters do not require parentheses e.g. `stopAllSounds()` can be expressed simply as `stopAllSounds`.
+Inside when wraps, standard commands are actions the ball does. See **List of commands** for all usable commands. Commands without parameters do not require parentheses. e.g. `stopAllSounds()` can be expressed simply as `stopAllSounds`.
 
 ## Using parameters
 
-Standard commands can use parameters, shown with parenthesis e.g. `turn(10)` turns the sprite 10° clockwise, denoted with the parameter 10.
+Standard commands can use parameters, shown with parenthesis. e.g. `turn(10)` turns the sprite 10° clockwise, denoted with the parameter 10.
 
-**Multiple parameters**
+### Multiple parameters
 
-Commands with multiple parameters are seperated with commas.
+Commands with multiple parameters are seperated with commas. e.g. `goToPos(-100,10)` has the inputs -100 and 10.
+
+# Reporters
+
+Reporters are variable values that can be used in command parameters. They are denoted with curly brackets. Reporters cannot have parameters. See **List of reporters** for all usable reporters.
+Example usage: `turn({mouseX})` uses the cursor's X position in the turn command's parameter. 
