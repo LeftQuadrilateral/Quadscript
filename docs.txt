@@ -28,8 +28,8 @@ clockwise when it hits a block.
 ⠀
 Inside when wraps, standard commands are actions the ball does.
 See **List of commands** for all usable commands. Commands
-without parameters do not require parentheses. e.g. @f[Source Code Pro]stopAllSounds()@f
-can be expressed simply as @f[Source Code Pro]stopAllSounds@f.
+without parameters do not require parentheses. e.g.
+@f[Source Code Pro]stopAllSounds()@f can be expressed simply as @f[Source Code Pro]stopAllSounds@f.
 ⠀
 ##Using parameters##
 ⠀
