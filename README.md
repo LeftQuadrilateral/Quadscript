@@ -1,7 +1,9 @@
-# Basic Usage
-## When blocks
+# When commands
+
 All code must be in a when event. They are marked with the blocks `when()` and `endWhen()`
-### All when events
+
+## All when events
+
 * onInit — runs when the ball is created
 * onHitBlock — runs when the ball hits a block
 * onHitAny — runs when the ball hits a block or a wall
@@ -9,7 +11,9 @@ All code must be in a when event. They are marked with the blocks `when()` and `
 * on1Second — runs every second
 * on2Seconds — runs every 2 seconds
 * on6Seconds — runs every 6 seconds
-### Example usage
+
+## Example usage
+
 ```
 when(onInit)
 setRotationStyle(all around)
@@ -19,3 +23,15 @@ turn(10)
 endWhen(onHitBlock)
 ```
 Lets the ball spin visually on initialization, and rotates 10° clockwise when it hits a block.
+
+# Standard Commands
+
+Inside when wraps, standard commands are actions the ball does. See **List of commands** for all usable commands. Commands without parameters do not require parentheses e.g. `stopAllSounds()` can be expressed simply as `stopAllSounds`.
+
+## Using parameters
+
+Standard commands can use parameters, shown with parenthesis e.g. `turn(10)` turns the sprite 10° clockwise, denoted with the parameter 10.
+
+**Multiple parameters**
+
+Commands with multiple parameters are seperated with commas.
