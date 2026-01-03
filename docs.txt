@@ -1,6 +1,6 @@
-# When commands
+# When wraps
 ⠀
-All code must be in a when event. They are marked with the blocks @f[Source Code Pro]when()@f and @f[Source Code Pro]endWhen()@f
+All commands must be in a when wrap. They are marked with the blocks @f[Source Code Pro]when()@f and @f[Source Code Pro]endWhen()@f
 ⠀
 ##All when events##
 ⠀
@@ -22,7 +22,7 @@ All code must be in a when event. They are marked with the blocks @f[Source Code
 @f[Source Code Pro]endWhen(onHitBlock)@f
 Lets the ball spin visually on initialization, and rotates 10° clockwise when it hits a block.
 ⠀
-# Standard commands#
+# Ccommands
 ⠀
 Inside when wraps, standard commands are actions the ball does. See **List of commands** for all usable commands. Commands without parameters do not require parentheses. e.g. @f[Source Code Pro]stopAllSounds()@f can be expressed simply as @f[Source Code Pro]stopAllSounds@f.
 ⠀
