@@ -16,7 +16,7 @@ All code must be in a when event. They are marked with the blocks @f[Source Code
 ##
 @f[Source Code Pro]when(onInit)@f
 @f[Source Code Pro]setRotationStyle(all around)@f
-@f[Source Code Pro]endWhen(inInit)@f
+@f[Source Code Pro]endWhen(onInit)@f
 @f[Source Code Pro]when(onHitBlock)@f
 @f[Source Code Pro]turn(10)@f
 @f[Source Code Pro]endWhen(onHitBlock)@f
