@@ -48,8 +48,41 @@ e.g. @f[Source Code Pro]goToPos(-100,10)@f has the inputs -100 and 10.
 ⠀
 Reporters are variable values that can be used in command
 parameters. They are denoted with curly brackets. Reporters
-cannot have parameters. See **List of reporters** for all
-usable reporters.
+cannot have parameters.
 ⠀
 Example usage: @f[Source Code Pro]turn({mouseX})@f uses the cursor's X position in
 the turn command's parameter.
+⠀
+##List of reporters##
+⠀
+- xPosition — The ball's X position
+- yPosition — The ball's Y position
+- direction — The ball's direction in degrees
+- xStretch — How stretched the ball is on the X axis
+- yStretch — How stretched the ball is on the Y axis
+- tintColor — The ball's tint color as a hex code
+- isVisible — Whether the ball is visible or not
+- layer — The ball's layer position
+- size — The ball's size
+- pitchEffect — Pitch modifier for the ball's sounds
+- volume — How loud the ball plays sounds
+- error — Returns an error
+- touchingMousePointer — True if the ball is touching the cursor
+- spaceKeyPressed — True if the space key is pressed
+- mouseDown — True if left-click is pressed
+- mouseX — The cursor's X position
+- mouseY — The cursor's Y position
+- timer — The in-game timer
+- daysSince2000 — Returns how many days since the year 2000
+- true — Returns true
+- false — Returns false
+- pi — Returns the constant pi
+- e — Returns the constant e
+- Infinity — returns Infinity
+- FPS — returns the framerate
+- stageColor — returns the background color in hex code
+⠀
+##Variables##
+⠀
+Reporters can also be variables in the code. They can either
+be global variables or local variables for the ball.
