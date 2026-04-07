@@ -1,0 +1,1737 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Blockly single-file XML demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    html,body { height:100%; margin:0; font-family:system-ui,Segoe UI,Roboto,Arial; }
+    #blocklyArea { height: 75vh; width: 100%; }
+    #controls { padding:10px; display:flex; gap:8px; align-items:center; }
+    textarea { width:100%; height:20vh; box-sizing:border-box; font-family:monospace; }
+    button { padding:6px 10px; cursor:pointer; }
+  </style>
+  <!-- Blockly CDN (prebuilt distribution exposing Blockly API incl. XML) -->
+  <script src="https://unpkg.com/blockly@8.0.0/blockly.min.js"></script>
+</head>
+<body>
+  <div id="controls">
+    <button id="exportBtn">Export</button>
+    <button id="importBtn">Import XML</button>
+    <button id="clearBtn">Clear</button>
+  </div>
+
+  <div id="blocklyArea"></div>
+
+  <textarea id="xmlOutput" placeholder="Workspace XML appears here when you click Export"></textarea>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "moveSteps",
+    "message0": "move %1 steps",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "turn",
+    "message0": "turn ↻ %1 degrees",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "goToMousePointer",
+    "message0": "go to mouse pointer",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "goToPos",
+    "message0": "go to x:%1 y:%2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "pointTowardsMousePointer",
+    "message0": "point towards mouse pointer",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "changeX",
+    "message0": "change x by %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setX",
+    "message0": "set x to %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "changeY",
+    "message0": "change y by %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setY",
+    "message0": "set y to %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setRotationStyle",
+    "message0": "set rotation style %1",
+    "args0": [
+      {"type": "field_dropdown", "name": "input1", "options": [
+        ["left-right", "left-right"],
+        ["up-down", "up-down"],
+        ["look at", "look at"],
+        ["don't rotate", "don't rotate"],
+        ["all around", "all around"]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "xPos",
+    "message0": "x position",
+    "output": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "yPos",
+    "message0": "y position",
+    "output": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "direction",
+    "message0": "direction",
+    "output": null,
+    "colour": colour="#4c97ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "say",
+    "message0": "say %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "changeSize",
+    "message0": "change size by %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setSize",
+    "message0": "set size to %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setStetch",
+    "message0": "set stetch to x: %1 y: %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "changeStetch",
+    "message0": "change stetch by x: %1 y: %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setTintColor",
+    "message0": "set tint color to %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "clearGraphicEffects",
+    "message0": "clear graphic effects",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "show",
+    "message0": "show",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "hide",
+    "message0": "hide",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "goToFrontLayer",
+    "message0": "goToFrontLayer",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "goToBackLayer",
+    "message0": "goToBackLayer",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "xStetch",
+    "message0": "x stretch",
+    "output": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "yStetch",
+    "message0": "y stretch",
+    "output": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "tintColor",
+    "message0": "tint color",
+    "output": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "isVisible",
+    "message0": "visible?",
+    "output": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "layer",
+    "message0": "layer",
+    "output": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "size",
+    "message0": "size",
+    "output": null,
+    "colour": colour="#9966ff",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "startSound",
+    "message0": "start sound %1",
+    "args0": [
+      {"type": "field_dropdown", "name": "input1", "options": [
+        ["Speedy", "Speedy"],
+        ["Factorial", "Factorial"],
+        ["Charger", "Charger"],
+        ["Ding", "Ding"],
+        ["Prime", "Prime"],
+        ["Exponential", "Exponential"],
+        ["Gambler", "Gambler"],
+        ["Lotto", "Lotto"],
+        ["Pell", "Pell"],
+        ["Centy", "Centy"],
+        ["Duplicator", "Duplicator"],
+        ["Duplicator Duplicate", "Duplicator Duplicate"],
+        ["Gravitron", "Gravitron"],
+        ["Grower", "Grower"],
+        ["NOT TIPLY", "NOT TIPLY"],
+        ["Slammy", "Slammy"],
+        ["Sticky", "Sticky"],
+        ["Fibonacci", "Fibonacci"],
+        ["Suction Cup", "Suction Cup"],
+        ["21 Ball", "21 Ball"]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#cf63cf",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "stopAllSounds",
+    "message0": "stop all sounds",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#cf63cf",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "changePitch",
+    "message0": "change pitch effect by %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#cf63cf",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setPitch",
+    "message0": "set pitch effect to %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#cf63cf",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "pitchEffect",
+    "message0": "pitch effect",
+    "output": null,
+    "colour": colour="#cf63cf",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "volume",
+    "message0": "volume",
+    "output": null,
+    "colour": colour="#cf63cf",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "when",
+    "message0": "when %1",
+    "args0": [
+      {"type": "field_dropdown", "name": "input1", "options": [
+        ["onInit", "onInit"],
+        ["onHitBlock", "onHitBlock"],
+        ["onHitAny", "onHitAny"],
+        ["onTick", "onTick"],
+        ["on1Second", "on1Second"],
+        ["on2Seconds", "on2Seconds"],
+        ["on6Seconds", "on6Seconds"]
+        ]
+      }
+    ],
+    "nextStatement": null,
+    "colour": colour="#ffbf00",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "endWhen",
+    "message0": "end when %1",
+    "args0": [
+      {"type": "field_dropdown", "name": "input1", "options": [
+        ["onInit", "onInit"],
+        ["onHitBlock", "onHitBlock"],
+        ["onHitAny", "onHitAny"],
+        ["onTick", "onTick"],
+        ["on1Second", "on1Second"],
+        ["on2Seconds", "on2Seconds"],
+        ["on6Seconds", "on6Seconds"]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "colour": colour="#ffbf00",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "broadcast",
+    "message0": "broadcast %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#ffbf00",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "stopScript",
+    "message0": "stop script",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#ffab19",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "detectKey",
+    "message0": "is key %1 is pressed? | output to %2",
+    "args0": [
+      {"type": "field_dropdown", "name": "input1", "options": [
+        ["space", "space"],
+        ["up arrow", "up arrow"],
+        ["down arrow", "down arrow"],
+        ["right arrow", "right arrow"],
+        ["left arrow", "left arrow"],
+        ["enter", "enter"],
+        ["any", "any"],
+        ["a", "a"],
+        ["b", "b"],
+        ["c", "c"],
+        ["d", "d"],
+        ["e", "e"],
+        ["f", "f"],
+        ["g", "g"],
+        ["h", "h"],
+        ["i", "i"],
+        ["j", "j"],
+        ["k", "k"],
+        ["l", "l"],
+        ["m", "m"],
+        ["n", "n"],
+        ["o", "o"],
+        ["p", "p"],
+        ["q", "q"],
+        ["r", "r"],
+        ["s", "s"],
+        ["t", "t"],
+        ["u", "u"],
+        ["v", "v"],
+        ["w", "w"],
+        ["x", "x"],
+        ["y", "y"],
+        ["z", "z"],
+        ["0", "0"],
+        ["1", "1"],
+        ["2", "2"],
+        ["3", "3"],
+        ["4", "4"],
+        ["5", "5"],
+        ["6", "6"],
+        ["7", "7"],
+        ["8", "8"],
+        ["9", "9"]
+        ]
+      },
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "touchingMousePointer",
+    "message0": "touching mouse pointer?",
+    "output": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "spaceKeyPressed",
+    "message0": "key space pressed?",
+    "output": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "mouseDown",
+    "message0": "mouse down?",
+    "output": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "mouseX",
+    "message0": "mouse x",
+    "output": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "mouseY",
+    "message0": "mouse y",
+    "output": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "timer",
+    "message0": "timer",
+    "output": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "daysSince2000",
+    "message0": "days since 2000",
+    "output": null,
+    "colour": colour="#5cb1d6",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "textInput",
+    "message0": "%1",
+    "args0": [
+      {"type": "field_input", "name": "input1", "text": ""}
+    ],
+    "output": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateAddition",
+    "message0": "%1 ＋ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateSubtraction",
+    "message0": "%1 － %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateMultiplication",
+    "message0": "%1 ＊ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateDivision",
+    "message0": "%1 ／ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateExponential",
+    "message0": "%1 ＾ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateNthRoot",
+    "message0": "%1 √ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateRandom",
+    "message0": "pick random %1 to %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateGreaterThan",
+    "message0": "%1 ＞ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateLessThan",
+    "message0": "%1 ＜ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateEquals",
+    "message0": "%1 ＝ %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "true",
+    "message0": "true",
+    "output": null,
+    "colour": colour="#59c059",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "false",
+    "message0": "false",
+    "output": null,
+    "colour": colour="#59c059",
+    "helpUrl": ""
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateAnd",
+    "message0": "%1 and %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateOr",
+    "message0": "%1 or %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateNot",
+    "message0": "not %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateJoin",
+    "message0": "join %1 %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateLetter",
+    "message0": "letter %1 of %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateLength",
+    "message0": "length of %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateContains",
+    "message0": "%1 contains %2? | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateMod",
+    "message0": "%1 mod %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateRound",
+    "message0": "round %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateAbs",
+    "message0": "abs %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateFloor",
+    "message0": "floor %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateCeiling",
+    "message0": "ceiling %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateSqrt",
+    "message0": "sqrt %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateSin",
+    "message0": "sin %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateCos",
+    "message0": "cos %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateTan",
+    "message0": "tan %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateLog",
+    "message0": "log %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "calculateIsPrime",
+    "message0": "is %1 prime? | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#59c059",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "pi",
+    "message0": "π",
+    "output": null,
+    "colour": colour="#59c059",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "e",
+    "message0": "e",
+    "output": null,
+    "colour": colour="#59c059",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "Infinity",
+    "message0": "Infinity",
+    "output": null,
+    "colour": colour="#59c059",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "# of hits",
+    "message0": "# of hits",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "ball index",
+    "message0": "ball index",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "Damage",
+    "message0": "Damage",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "globalVar1",
+    "message0": "globalVar1",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "globalVar2",
+    "message0": "globalVar2",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "globalVar3",
+    "message0": "globalVar3",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "Gravity",
+    "message0": "Gravity",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "localVar1",
+    "message0": "localVar1",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "localVar2",
+    "message0": "localVar2",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "localVar3",
+    "message0": "localVar3",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "Movement speed",
+    "message0": "Movement speed",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "x velocity",
+    "message0": "x velocity",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "y velocity",
+    "message0": "y velocity",
+    "output": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setVariable",
+    "message0": "set %1 to %2",
+    "args0": [
+      {"type": "field_input", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "changeVariable",
+    "message0": "change %1 by %2",
+    "args0": [
+      {"type": "field_input", "name": "input1", "text": ""},
+      {"type": "input_value", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff8c1a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "getItemOfList",
+    "message0": "item %1 of %2 | output to %3",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""},
+      {"type": "field_input", "name": "input3", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff661a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "addToList",
+    "message0": "add %1 to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff661a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "deleteFromList",
+    "message0": "delete %1 of %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff661a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "deleteAllOfList",
+    "message0": "delete all of %1",
+    "args0": [
+      {"type": "field_input", "name": "input1", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff661a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "replaceItemOfList",
+    "message0": "replace item %1 of %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff661a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "getLengthOfList",
+    "message0": "length of %1 | output to %2",
+    "args0": [
+      {"type": "field_input", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff661a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "copyList",
+    "message0": "copy %1 to %2",
+    "args0": [
+      {"type": "field_input", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#ff661a",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "addComponent",
+    "message0": "add component %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#ff6680",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "damageBlock",
+    "message0": "deal %1 damage to block",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#ff6680",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "healBlocks",
+    "message0": "heal opponent's blocks by %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#ff6680",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "summonBall",
+    "message0": "summon %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#ff6680",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "loadURLProject",
+    "message0": "load project from %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#0fbd8c",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "setStageBackgroundColor",
+    "message0": "set stage background color to %1",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""}
+      ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": colour="#0fbd8c",
+    "helpUrl": ""
+     }]);
+  </script>
+
+  <script>
+    Blockly.defineBlocksWithJsonArray([{
+    "type": "returnFetch",
+    "message0": "GET %1 | output to %2",
+    "args0": [
+      {"type": "input_value", "name": "input1", "text": ""},
+      {"type": "field_input", "name": "input2", "text": ""}
+    ],
+    "nextStatement": null,
+    "previousStatement": null,
+    "colour": colour="#0fbd8c",
+    "helpUrl": "",
+    "inputsInline": true
+     }]);
+  </script>
+
+
+  <script>
+    // Create Blockly workspace
+    const container = document.getElementById('blocklyArea');
+    const workspace = Blockly.inject(container, {
+      toolbox: `<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+        <category name="Motion" colour="#4c97ff">
+          <block type="moveSteps"></block>
+          <block type="turn"></block>
+          <block type="goToMousePointer"></block>
+          <block type="goToPos"></block>
+          <block type="pointTowardsMousePointer"></block>
+          <block type="changeX"></block>
+          <block type="setX"></block>
+          <block type="changeY"></block>
+          <block type="setY"></block>
+          <block type="setRotationStyle"></block>
+          <block type="xPos"></block>
+          <block type="yPos"></block>
+          <block type="direction"></block>
+        </category>
+        <category name="Looks" colour="#9966ff">
+          <block type="say"></block>
+          <block type="changeSize"></block>
+          <block type="setSize"></block>
+          <block type="setStetch"></block>
+          <block type="changeStetch"></block>
+          <block type="setTintColor"></block>
+          <block type="clearGraphicEffects"></block>
+          <block type="show"></block>
+          <block type="hide"></block>
+          <block type="goToFrontLayer"></block>
+          <block type="goToBackLayer"></block>
+          <block type="xStetch"></block>
+          <block type="yStetch"></block>
+          <block type="tintColor"></block>
+          <block type="isVisible"></block>
+          <block type="layer"></block>
+          <block type="size"></block>
+        </category>
+        <category name="Sounds" colour="#cf63cf">
+          <block type="startSound"></block>
+          <block type="stopAllSounds"></block>
+          <block type="changePitch"></block>
+          <block type="setPitch"></block>
+          <block type="pitchEffect"></block>
+          <block type="volume"></block>
+        </category>
+        <category name="Events" colour="#ffbf00">
+          <block type="when"></block>
+          <block type="endWhen"></block>
+          <block type="broadcast"></block>
+        </category>
+        <category name="Control" colour="#ffab19">
+          <block type="stopScript"></block>
+        </category>
+        <category name="Sensing" colour="#5cb1d6">
+          <block type="detectKey"></block>
+          <block type="touchingMousePointer"></block>
+          <block type="spaceKeyPressed"></block>
+          <block type="mouseDown"></block>
+          <block type="mouseX"></block>
+          <block type="mouseY"></block>
+          <block type="timer"></block>
+          <block type="daysSince2000"></block>
+        </category>
+        <category name="Operators" colour="#59c059">
+          <block type="textInput"></block>
+          <block type="calculateAddition"></block>
+          <block type="calculateSubtraction"></block>
+          <block type="calculateMultiplication"></block>
+          <block type="calculateDivision"></block>
+          <block type="calculateExponential"></block>
+          <block type="calculateNthRoot"></block>
+          <block type="calculateRandom"></block>
+          <block type="calculateGreaterThan"></block>
+          <block type="calculateLessThan"></block>
+          <block type="calculateEquals"></block>
+          <block type="true"></block>
+          <block type="false"></block>
+          <block type="calculateAnd"></block>
+          <block type="calculateOr"></block>
+          <block type="calculateNot"></block>
+          <block type="calculateJoin"></block>
+          <block type="calculateLetter"></block>
+          <block type="calculateLength"></block>
+          <block type="calculateContains"></block>
+          <block type="calculateMod"></block>
+          <block type="calculateRound"></block>
+          <block type="calculateAbs"></block>
+          <block type="calculateFloor"></block>
+          <block type="calculateCeiling"></block>
+          <block type="calculateSqrt"></block>
+          <block type="calculateSin"></block>
+          <block type="calculateCos"></block>
+          <block type="calculateTan"></block>
+          <block type="calculateLog"></block>
+          <block type="calculateIsPrime"></block>
+          <block type="pi"></block>
+          <block type="e"></block>
+          <block type="Infinity"></block>
+        </category>
+        <category name="Variables" colour="#ff8c1a">
+          <block type="# of hits"></block>
+          <block type="ball index"></block>
+          <block type="Damage"></block>
+          <block type="globalVar1"></block>
+          <block type="globalVar2"></block>
+          <block type="globalVar3"></block>
+          <block type="Gravity"></block>
+          <block type="localVar1"></block>
+          <block type="localVar2"></block>
+          <block type="localVar3"></block>
+          <block type="Movement speed"></block>
+          <block type="x velocity"></block>
+          <block type="y velocity"></block>
+          <block type="setVariable"></block>
+          <block type="changeVariable"></block>
+        </category>
+        <category name="Lists" colour="#ff661a">
+          <block type="getItemOfList"></block>
+          <block type="addToList"></block>
+          <block type="deleteFromList"></block>
+          <block type="deleteAllOfList"></block>
+          <block type="replaceItemOfList"></block>
+          <block type="getLengthOfList"></block>
+          <block type="copyList"></block>
+        </category>
+        <category name="Game" colour="#ff6680">
+          <block type="addComponent"></block>
+          <block type="damageBlock"></block>
+          <block type="healBlocks"></block>
+          <block type="summonBall"></block>
+        </category>
+        <category name="Misc" colour="#0fbd8c">
+          <block type="loadURLProject"></block>
+          <block type="setStageBackgroundColor"></block>
+          <block type="returnFetch"></block>
+        </category>
+      </xml>`
+    });
+
+    // Helpers for XML export/import using Blockly's XML API
+    function exportWorkspaceXml(download=false) {
+      const xmlDom = Blockly.Xml.workspaceToDom(workspace);
+      const xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+      document.getElementById('xmlOutput').value = xmlText;
+      if (download) {
+        const blob = new Blob([xmlText], {type: 'application/xml'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'workspace.xml';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    function importWorkspaceXml() {
+      const xmlText = document.getElementById('xmlOutput').value.trim();
+      if (!xmlText) {
+        alert('Paste XML into the textarea first or use the sample XML.');
+        return;
+      }
+      try {
+        const xmlDom = Blockly.Xml.textToDom(xmlText);
+        workspace.clear();
+        Blockly.Xml.domToWorkspace(xmlDom, workspace);
+      } catch (e) {
+        alert('Invalid XML: ' + e);
+      }
+    }
+
+    function clearWorkspace() {
+      workspace.clear();
+      document.getElementById('xmlOutput').value = '';
+    }
+
+    // Buttons
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      exportWorkspaceXml(true);
+    });
+    document.getElementById('importBtn').addEventListener('click', importWorkspaceXml);
+    document.getElementById('clearBtn').addEventListener('click', clearWorkspace);
+
+    // Optional: load a small starter block program on first load
+
+    const starterDom = Blockly.Xml.textToDom(starterXml);
+    Blockly.Xml.domToWorkspace(starterDom, workspace);
+  </script>
+</body>
+</html>
