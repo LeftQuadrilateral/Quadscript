@@ -1,0 +1,1 @@
+["when(onHitAny)","calculateAddition({# of hits},{timer},globalVar1)","changePitch({globalVar1})","startSound(Centy)","damageBlock({Damage})","calculateMultiplication({pitchEffect},{globalVar1},Damage)","endWhen(onHitBlock)"]⌧{"color":"#00cca3","stat":"Damage","statval":"1","damage":"1","symbol":"LtC"}⌧Pitcher V2
