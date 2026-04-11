@@ -1,0 +1,1 @@
+["when(onHitBlock)","startSound(Prime)","calculateAddition({Damage},1,Damage)","calculateExponential({Damage},1.05,Damage)","setStretch({# of hits},50)","endWhen(onHitBlock)","when(on1Second)","summonBall(Prime)","endWhen(on1Second)"]⌧{"color":"#7fd936","stat":"Damage","statval":"1","damage":"1","symbol":"LtP"}⌧evil prime
