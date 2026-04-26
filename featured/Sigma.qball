@@ -1,0 +1,1 @@
+["when(onInit)","addComponent(Speedy)","addComponent(Slammy)","addComponent(Gravitron)","endWhen(onInit)","","when(on6Seconds)","healBlocks({# of hits})","summonBall(Speedy)","endWhen(on6Seconds)"]⌧{"color":"#7afffd","stat":"Sigma Power","statval":"500","damage":"1","symbol":"LtC"}⌧Sigma
