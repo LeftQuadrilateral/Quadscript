@@ -1,0 +1,1 @@
+["when(onInit)","setStretch(100,25)","addComponent(Rapidfire)","addComponent(Bouncer)","endWhen(onInit)","when(onHitAny)","damageBlock(-1)","summonBall(Egg)","endWhen(onHitAny)"]⌧{"color":"#ffff00","stat":"eggs","statval":"","damage":"1","symbol":"LtC"}⌧Egg Factory
